@@ -2,7 +2,9 @@ require 'sidekiq'
 require 'sidekiq/web'
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: ENV['REDIS_SIDEKIQ'] }
+  option = { url: ENV['REDIS_SIDEKIQ'] }
+  option[:namespace] = ENV["REDIS_SIDEKIQ_NAMESPACE"] if ENV["REDIS_SIDEKIQ_NAMESPACE"]
+  config.redis = option
 end
 
 Sidekiq::Web.use(Rack::Auth::Basic) do |user, password|
