@@ -1,5 +1,6 @@
 require 'sidekiq'
 require 'sidekiq/web'
+require 'sidekiq-failures'
 
 Sidekiq.configure_client do |config|
   option = { url: ENV['REDIS_SIDEKIQ'] }
